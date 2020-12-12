@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>D&D.Sci Evaluator</title>
+</head>
+<body>
+  <div><span id="STR">STR: 6/20</span> <button onclick="improve_str()">Improve</button></div>
+  <br>
+  <div><span id="CON">CON: 14/20</span> <button onclick="improve_con()">Improve</button></div>
+  <br>
+  <div><span id="DEX">DEX: 13/20</span> <button onclick="improve_dex()">Improve</button></div>
+  <br>
+  <div><span id="INT">INT: 13/20</span> <button onclick="improve_int()">Improve</button></div>
+  <br>
+  <div><span id="WIS">WIS: 12/20</span> <button onclick="improve_wis()">Improve</button></div>
+  <br>
+  <div><span id="CHA">CHA: 4/20</span> <button onclick="improve_cha()">Improve</button></div>
+  <br>
+  <br>
+  <div id="PR">Points remaining: 10</div>
+  <br>
+  <br>
+  <button onclick="quest()">Begin Quest!</button>
+  <br>
+  <br>
+  <div id="result"></div>
+  <br>
+  <div id="winchance"></div>
+<b style="font-size:28px">
+</div>
+  
+</b>
+<script id="jsbin-javascript">
+
+str = 6
+con = 14
+dex = 13
+int = 13
+wis = 12
+cha = 4
+
+pr = 10
+
+done = 0
+
+
+function improve_str(){
+ if (str<20 && pr>0){
+  str=str+1
+  pr=pr-1
+ update_html()
+ }
+}
+
+function improve_con(){
+ if (con<20 && pr>0){
+  con=con+1
+  pr=pr-1
+ update_html()
+ }
+}
+
+function improve_dex(){
+ if (dex<20 && pr>0){
+  dex=dex+1
+  pr=pr-1
+ update_html()
+ }
+}
+
+function improve_int(){
+ if (int<20 && pr>0){
+  int=int+1
+  pr=pr-1
+ update_html()
+ }
+}
+
+function improve_wis(){
+ if (wis<20 && pr>0){
+  wis=wis+1
+  pr=pr-1
+ update_html()
+ }
+}
+
+function improve_cha(){
+ if (cha<20 && pr>0){
+  cha=cha+1
+  pr=pr-1
+ update_html()
+ }
+}
+
+
+function update_html(){
+ document.getElementById("STR").innerHTML = "STR: " + str + "/20"
+ document.getElementById("CON").innerHTML = "CON: " + con + "/20"
+ document.getElementById("DEX").innerHTML = "DEX: " + dex + "/20"
+ document.getElementById("INT").innerHTML = "INT: " + int + "/20"
+ document.getElementById("WIS").innerHTML = "WIS: " + wis + "/20"
+ document.getElementById("CHA").innerHTML = "CHA: " + cha + "/20"
+ 
+ document.getElementById("PR").innerHTML = "Points remaining: " + pr
+}
+
+
+
+function quest(){
+ if (Math.random()<calc_win_chance()){
+  document.getElementById("result").innerHTML = "You succeed in your Great Quest!"
+ }
+ else{
+  document.getElementById("result").innerHTML = "You fail to complete your Great Quest."
+ }
+ WinChanceToDisplay = (Math.floor(calc_win_chance()*10000)/100)+"%"
+ document.getElementById("winchance").innerHTML = "(you had a "+WinChanceToDisplay+" chance of success.)"
+}
+
+function calc_win_chance(){
+ adv = 1
+ if (str>12){
+  adv=adv+(str-12)*2
+ }
+ if (con>12){
+  adv=adv+(con-12)*2
+ }
+ if (int>12){
+  adv=adv+(int-12)*2
+ }
+ if (wis>12){
+  adv=adv+(wis-12)*2
+ }
+ if (cha>12){
+  adv=adv+(cha-12)*2
+ }
+ if (cha>16){
+  adv = adv+5
+ }
+ 
+ dis = 1
+ if (str<8){
+  dis=dis+(8-str)*3
+ }
+ if (con<8){
+  dis=dis+(8-con)*3
+ }
+ if (int<8){
+  dis=dis+(8-int)*3
+ }
+ if (wis<8){
+  dis=dis+(8-wis)*3
+ }
+ if (cha<8){
+  dis=dis+(8-cha)*3
+ }
+ if (int>wis){
+  dis=dis+2
+ }
+ if (str>con){
+  dis=dis+2
+ }
+
+ return adv/(adv+dis)
+}
+
+</script>
+</body>
+</html>
